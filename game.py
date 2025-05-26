@@ -242,7 +242,7 @@ def init_game():
     
     # 3행 7열로 카드 배치
     card_width, card_height = 120, 180
-    margin_x, margin_y = 30, 50
+    margin_x, margin_y = 30, 150  # 상단 여백을 늘려서 안내문과 카드 사이 간격 확보
     
     for row in range(3):
         for col in range(7):
@@ -349,12 +349,16 @@ def main():
             start_button.draw()
             
         elif game_state == GameState.SELECTING:
-            # 안내 텍스트
+            # 안내 텍스트 - 위치를 상단에서 더 떨어뜨려 카드와 겹치지 않게 조정
             title = font_medium.render("세 장의 카드를 선택하세요", True, WHITE)
             subtitle = font_small.render("첫 번째 카드는 과거, 두 번째는 현재, 세 번째는 미래를 나타냅니다", True, WHITE)
             
-            title_rect = title.get_rect(center=(SCREEN_WIDTH//2, 20))
-            subtitle_rect = subtitle.get_rect(center=(SCREEN_WIDTH//2, 50))
+            # 안내문 위치를 상단에서 더 떨어뜨림
+            title_rect = title.get_rect(center=(SCREEN_WIDTH//2, 80))
+            subtitle_rect = subtitle.get_rect(center=(SCREEN_WIDTH//2, 110))
+            
+            # 안내문 배경 추가 (가독성 향상)
+            pygame.draw.rect(screen, (0, 0, 0, 128), pygame.Rect(0, 60, SCREEN_WIDTH, 80), border_radius=5)
             
             screen.blit(title, title_rect)
             screen.blit(subtitle, subtitle_rect)
